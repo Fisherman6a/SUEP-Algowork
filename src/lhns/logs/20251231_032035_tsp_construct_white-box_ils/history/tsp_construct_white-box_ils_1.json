@@ -1,0 +1,510 @@
+[
+     [
+          {
+               "algorithm": "\nThe new algorithm selects the next node by first calculating the distance of all unvisited nodes to the current node, then selecting the node with the shortest distance as the next node.\n",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    next_node = unvisited_nodes[np.argmin(distances)]\n    return next_node",
+               "objective": 7.21241,
+               "other_inf": null
+          },
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by weighing the reduction in distance to the destination against the added travel distance, preferring moves that make significant progress toward the final goal.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if destination_node in unvisited_nodes:\n        unvisited_nodes = unvisited_nodes[unvisited_nodes != destination_node]\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    distances_to_current = distance_matrix[current_node, unvisited_nodes]\n    distances_to_dest = distance_matrix[destination_node, unvisited_nodes]\n    current_to_dest = distance_matrix[current_node, destination_node]\n    progress = current_to_dest - distances_to_dest\n    ratios = distances_to_current / (progress + 1e-10)\n    next_node = unvisited_nodes[np.argmin(ratios)]\n    return next_node",
+               "objective": 21.96275,
+               "other_inf": [
+                    "    if destination_node in unvisited_nodes:",
+                    "        unvisited_nodes = unvisited_nodes[unvisited_nodes != destination_node]",
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    distances_to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    distances_to_dest = distance_matrix[destination_node, unvisited_nodes]",
+                    "    current_to_dest = distance_matrix[current_node, destination_node]",
+                    "    progress = current_to_dest - distances_to_dest",
+                    "    ratios = distances_to_current / (progress + 1e-10)",
+                    "    next_node = unvisited_nodes[np.argmin(ratios)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm initially selects candidate nodes within a dynamic percentile threshold based on remaining nodes, then chooses the one that minimizes a weighted sum of normalized distance to current node and normalized detour cost relative to going directly from current to destination.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if unvisited_nodes.size == 0:\n        return destination_node\n    distances = distance_matrix[current_node, unvisited_nodes]\n    dynamic_percentile = max(20, 100 * len(unvisited_nodes) / len(distance_matrix))\n    threshold = np.percentile(distances, dynamic_percentile)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    direct_to_dest = distance_matrix[current_node, destination_node]\n    candidate_distances = distance_matrix[current_node, candidates]\n    detour_costs = distance_matrix[candidates, destination_node]\n    norm_dist = (candidate_distances - candidate_distances.min()) / (candidate_distances.max() - candidate_distances.min() + 1e-9)\n    norm_detour = (detour_costs - detour_costs.min()) / (detour_costs.max() - detour_costs.min() + 1e-9)\n    scores = 0.6 * norm_dist + 0.4 * norm_detour\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 7.48747,
+               "other_inf": [
+                    "    if unvisited_nodes.size == 0:",
+                    "        return destination_node",
+                    "    dynamic_percentile = max(20, 100 * len(unvisited_nodes) / len(distance_matrix))",
+                    "    threshold = np.percentile(distances, dynamic_percentile)",
+                    "    direct_to_dest = distance_matrix[current_node, destination_node]",
+                    "    candidate_distances = distance_matrix[current_node, candidates]",
+                    "    detour_costs = distance_matrix[candidates, destination_node]",
+                    "    norm_dist = (candidate_distances - candidate_distances.min()) / (candidate_distances.max() - candidate_distances.min() + 1e-9)",
+                    "    norm_detour = (detour_costs - detour_costs.min()) / (detour_costs.max() - detour_costs.min() + 1e-9)",
+                    "    scores = 0.6 * norm_dist + 0.4 * norm_detour",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by first calculating a score that balances the proximity to the current node, the alignment with the direction to the destination, and the isolation of the node to encourage early visitation of distant points, then chooses the node with the lowest score.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances_to_current = distance_matrix[current_node, unvisited_nodes]\n    distances_to_destination = distance_matrix[destination_node, unvisited_nodes]\n    mean_distances = distance_matrix[unvisited_nodes][:, unvisited_nodes].mean(axis=1)\n    scores = distances_to_current + 0.5 * distances_to_destination - 0.3 * mean_distances\n    next_node_index = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_index]\n    return next_node",
+               "objective": 7.23519,
+               "other_inf": [
+                    "    distances_to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    distances_to_destination = distance_matrix[destination_node, unvisited_nodes]",
+                    "    mean_distances = distance_matrix[unvisited_nodes][:, unvisited_nodes].mean(axis=1)",
+                    "    scores = distances_to_current + 0.5 * distances_to_destination - 0.3 * mean_distances",
+                    "    next_node_index = np.argmin(scores)",
+                    "    next_node = unvisited_nodes[next_node_index]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by first identifying candidate nodes within a dynamic distance threshold (based on the median distance to unvisited nodes), then choosing the candidate that maximizes the product of proximity to the current node and alignment toward the destination, normalized by the destination distance to balance exploration and goal direction.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.median(distances)\n    candidates = unvisited_nodes[distances <= threshold]\n    if len(candidates) == 0:\n        candidates = unvisited_nodes\n    proximity = distance_matrix[current_node, candidates]\n    goal_alignment = distance_matrix[destination_node, candidates]\n    scores = 1 / (proximity + 1e-9) * (1 / (goal_alignment + 1e-9))\n    next_node = candidates[np.argmax(scores)]\n    return next_node",
+               "objective": 7.71468,
+               "other_inf": [
+                    "    threshold = np.median(distances)",
+                    "    if len(candidates) == 0:",
+                    "    proximity = distance_matrix[current_node, candidates]",
+                    "    goal_alignment = distance_matrix[destination_node, candidates]",
+                    "    scores = 1 / (proximity + 1e-9) * (1 / (goal_alignment + 1e-9))",
+                    "    next_node = candidates[np.argmax(scores)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, while also penalizing nodes that are far from all other unvisited nodes to improve overall route cohesion.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if len(candidates) == 0:\n        candidates = unvisited_nodes\n    mean_dist_to_others = np.array([np.mean(distance_matrix[c, unvisited_nodes]) for c in candidates])\n    normalized_mean = mean_dist_to_others / (np.max(mean_dist_to_others) + 1e-9)\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    combined = ratios + 0.5 * normalized_mean\n    next_node = candidates[np.argmin(combined)]\n    return next_node",
+               "objective": 8.04395,
+               "other_inf": [
+                    "    if len(candidates) == 0:",
+                    "    mean_dist_to_others = np.array([np.mean(distance_matrix[c, unvisited_nodes]) for c in candidates])",
+                    "    normalized_mean = mean_dist_to_others / (np.max(mean_dist_to_others) + 1e-9)",
+                    "    combined = ratios + 0.5 * normalized_mean",
+                    "    next_node = candidates[np.argmin(combined)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm initially calculates distances from the current node to all unvisited nodes, then filters candidates to those within a dynamically adjusted percentile-based distance threshold, and finally chooses the node that minimizes a weighted score balancing immediate proximity and alignment toward the destination.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 20)\n    candidates = unvisited_nodes[distances <= threshold]\n    if len(candidates) == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.85317,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 20)",
+                    "    if len(candidates) == 0:"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing direct proximity, alignment toward the final destination, and exploration via a probabilistic softmax over a combined score of inverse distance and destination-direction ratio.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    dist_to_candidates = distance_matrix[current_node, unvisited_nodes]\n    if destination_node in unvisited_nodes:\n        dist_to_dest_from_candidates = distance_matrix[destination_node, unvisited_nodes]\n    else:\n        dist_to_dest_from_candidates = np.zeros_like(dist_to_candidates)\n    inv_dist = 1 / (dist_to_candidates + 1e-9)\n    dir_ratio = dist_to_candidates / (dist_to_dest_from_candidates + 1e-9)\n    combined_score = inv_dist / (dir_ratio + 1e-9)\n    probabilities = np.exp(combined_score) / np.sum(np.exp(combined_score))\n    next_node = np.random.choice(unvisited_nodes, p=probabilities)\n    return next_node",
+               "objective": 26.07842,
+               "other_inf": [
+                    "    dist_to_candidates = distance_matrix[current_node, unvisited_nodes]",
+                    "    if destination_node in unvisited_nodes:",
+                    "        dist_to_dest_from_candidates = distance_matrix[destination_node, unvisited_nodes]",
+                    "    else:",
+                    "        dist_to_dest_from_candidates = np.zeros_like(dist_to_candidates)",
+                    "    inv_dist = 1 / (dist_to_candidates + 1e-9)",
+                    "    dir_ratio = dist_to_candidates / (dist_to_dest_from_candidates + 1e-9)",
+                    "    combined_score = inv_dist / (dir_ratio + 1e-9)",
+                    "    probabilities = np.exp(combined_score) / np.sum(np.exp(combined_score))",
+                    "    next_node = np.random.choice(unvisited_nodes, p=probabilities)"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\"The algorithm initially calculates distances from the current node to all unvisited nodes, then filters to those within a distance percentile threshold, and finally chooses the node that minimizes the ratio of distance to the current node over distance to the destination node, favoring proximity and direction toward the end goal.\"",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    next_node = candidates[np.argmin(ratios)]\n    return next_node",
+               "objective": 6.58198,
+               "other_inf": [
+                    "    threshold = np.percentile(distances, 30)",
+                    "    candidates = unvisited_nodes[distances <= threshold]",
+                    "    if candidates.size == 0:",
+                    "        candidates = unvisited_nodes",
+                    "    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)",
+                    "    next_node = candidates[np.argmin(ratios)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing immediate proximity, future route flexibility via average distance to remaining nodes, and a penalty for nodes that are close to the destination to avoid premature convergence, all normalized within a dynamic threshold.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, np.setdiff1d(unvisited_nodes, c)]) for c in candidates])\n    proximity = distance_matrix[current_node, candidates]\n    dest_penalty = np.maximum(distance_matrix[destination_node, candidates], 1e-9)\n    flexibility = avg_future_dist\n    scores = proximity * dest_penalty / (flexibility + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 7.02466,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, np.setdiff1d(unvisited_nodes, c)]) for c in candidates])",
+                    "    proximity = distance_matrix[current_node, candidates]",
+                    "    dest_penalty = np.maximum(distance_matrix[destination_node, candidates], 1e-9)",
+                    "    flexibility = avg_future_dist",
+                    "    scores = proximity * dest_penalty / (flexibility + 1e-6)"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by dynamically balancing a greediness factor favoring nearby nodes and a future-cost heuristic penalizing candidates based on their minimum distance to any remaining node, with random perturbation to escape local optima.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if not unvisited_nodes.size:\n        return destination_node\n    distances = distance_matrix[current_node, unvisited_nodes]\n    min_to_rest = np.array([np.min(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in unvisited_nodes])\n    greediness = np.random.random() * 0.5 + 0.5\n    scores = greediness * distances + (1 - greediness) * min_to_rest\n    next_node = unvisited_nodes[np.argmin(scores)]\n    return next_node",
+               "objective": 7.63735,
+               "other_inf": [
+                    "    if not unvisited_nodes.size:",
+                    "        return destination_node",
+                    "    min_to_rest = np.array([np.min(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in unvisited_nodes])",
+                    "    greediness = np.random.random() * 0.5 + 0.5",
+                    "    scores = greediness * distances + (1 - greediness) * min_to_rest",
+                    "    next_node = unvisited_nodes[np.argmin(scores)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": "Select the next node by weighting the immediate distance, proximity to the centroid of remaining nodes, and a stochastic perturbation to escape local minima.",
+               "code": "import numpy as np\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    centroid = np.mean([np.unravel_index(node, distance_matrix.shape) for node in unvisited_nodes], axis=0)\n    centroid_dists = np.array([np.linalg.norm(np.unravel_index(c, distance_matrix.shape) - centroid) for c in unvisited_nodes])\n    immediate = distance_matrix[current_node, unvisited_nodes]\n    weights = 0.5 * immediate + 0.3 * centroid_dists + 0.2 * np.random.rand(len(unvisited_nodes))\n    next_node = unvisited_nodes[np.argmin(weights)]\n    return next_node",
+               "objective": 22.48339,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    centroid = np.mean([np.unravel_index(node, distance_matrix.shape) for node in unvisited_nodes], axis=0)",
+                    "    centroid_dists = np.array([np.linalg.norm(np.unravel_index(c, distance_matrix.shape) - centroid) for c in unvisited_nodes])",
+                    "    immediate = distance_matrix[current_node, unvisited_nodes]",
+                    "    weights = 0.5 * immediate + 0.3 * centroid_dists + 0.2 * np.random.rand(len(unvisited_nodes))",
+                    "    next_node = unvisited_nodes[np.argmin(weights)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by combining a greedy proximity score, a penalty for being too close to the centroid of unvisited nodes to encourage exploration of the periphery, and a look-ahead penalty proportional to the minimum distance from the candidate to any other unvisited node.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    distances_to_current = distance_matrix[current_node, unvisited_nodes]\n    centroid = np.mean([distance_matrix[:, i] for i in unvisited_nodes], axis=0)\n    distances_to_centroid = np.array([distance_matrix[i].dot(centroid) for i in unvisited_nodes])\n    lookahead_penalties = np.array([np.min(distance_matrix[c, np.setdiff1d(unvisited_nodes, c)]) if len(unvisited_nodes) > 1 else distance_matrix[c, destination_node] for c in unvisited_nodes])\n    scores = distances_to_current + 0.3 * distances_to_centroid - 0.4 * lookahead_penalties\n    next_node = unvisited_nodes[np.argmin(scores)]\n    return next_node",
+               "objective": 10.90404,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    distances_to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    centroid = np.mean([distance_matrix[:, i] for i in unvisited_nodes], axis=0)",
+                    "    distances_to_centroid = np.array([distance_matrix[i].dot(centroid) for i in unvisited_nodes])",
+                    "    lookahead_penalties = np.array([np.min(distance_matrix[c, np.setdiff1d(unvisited_nodes, c)]) if len(unvisited_nodes) > 1 else distance_matrix[c, destination_node] for c in unvisited_nodes])",
+                    "    scores = distances_to_current + 0.3 * distances_to_centroid - 0.4 * lookahead_penalties",
+                    "    next_node = unvisited_nodes[np.argmin(scores)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node, alignment toward the destination, and each candidate's average distance to all remaining unvisited nodes to promote future route flexibility, using a weighted score.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    candidates = unvisited_nodes\n    proximity = distance_matrix[current_node, candidates]\n    alignment = distance_matrix[destination_node, candidates]\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) if len(unvisited_nodes) > 1 else 0 for c in candidates])\n    proximity_norm = proximity / (np.max(proximity) + 1e-9)\n    alignment_norm = alignment / (np.max(alignment) + 1e-9)\n    avg_future_norm = avg_future_dist / (np.max(avg_future_dist) + 1e-9)\n    scores = 0.4 * proximity_norm + 0.3 * (1 - alignment_norm) + 0.3 * (1 - avg_future_norm)\n    best_idx = np.argmin(scores)\n    next_node = candidates[best_idx]\n    return next_node",
+               "objective": 7.37179,
+               "other_inf": [
+                    "    proximity = distance_matrix[current_node, candidates]",
+                    "    alignment = distance_matrix[destination_node, candidates]",
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) if len(unvisited_nodes) > 1 else 0 for c in candidates])",
+                    "    proximity_norm = proximity / (np.max(proximity) + 1e-9)",
+                    "    alignment_norm = alignment / (np.max(alignment) + 1e-9)",
+                    "    avg_future_norm = avg_future_dist / (np.max(avg_future_dist) + 1e-9)",
+                    "    scores = 0.4 * proximity_norm + 0.3 * (1 - alignment_norm) + 0.3 * (1 - avg_future_norm)",
+                    "    best_idx = np.argmin(scores)",
+                    "    next_node = candidates[best_idx]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 6.44352,
+               "other_inf": [
+                    "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+                    "    scores = ratios / (avg_future_dist + 1e-6)",
+                    "    next_node = candidates[np.argmin(scores)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by combining proximity to the current node, alignment toward the destination, and a penalty for nodes that are closest to any unvisited node, to prevent isolating remote nodes.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    distances = distance_matrix[current_node, unvisited_nodes]\n    candidates = unvisited_nodes[distances <= np.percentile(distances, 30)]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    dest_dist = distance_matrix[destination_node, candidates]\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    closest_to_any = np.array([np.min(distance_matrix[c, np.setdiff1d(unvisited_nodes, c)]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (dest_dist + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6) * (closest_to_any + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+               "objective": 8.98452,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    candidates = unvisited_nodes[distances <= np.percentile(distances, 30)]",
+                    "    dest_dist = distance_matrix[destination_node, candidates]",
+                    "    closest_to_any = np.array([np.min(distance_matrix[c, np.setdiff1d(unvisited_nodes, c)]) for c in candidates])",
+                    "    ratios = distance_matrix[current_node, candidates] / (dest_dist + 1e-9)",
+                    "    scores = ratios / (avg_future_dist + 1e-6) * (closest_to_any + 1e-6)"
+               ]
+          }
+     ]
+]

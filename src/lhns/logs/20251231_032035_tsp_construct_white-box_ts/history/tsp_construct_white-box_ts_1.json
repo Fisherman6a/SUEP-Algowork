@@ -1,0 +1,563 @@
+[
+     [
+          {
+               "algorithm": "\nThe new algorithm selects the next node by first calculating the distance of all unvisited nodes to the current node, then selecting the node with the shortest distance as the next node.\n",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    next_node = unvisited_nodes[np.argmin(distances)]\n    return next_node",
+               "objective": 7.21241,
+               "other_inf": null
+          },
+          {
+               "algorithm": "Select the next node by balancing proximity to the current node and distance to the final destination.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    alpha = 0.5\n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[unvisited_nodes, destination_node]\n    combined = alpha * current_distances + (1 - alpha) * dest_distances\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 8.03034,
+               "other_inf": [
+                    "    alpha = 0.5",
+                    "    current_distances = distance_matrix[current_node, unvisited_nodes]",
+                    "    dest_distances = distance_matrix[unvisited_nodes, destination_node]",
+                    "    combined = alpha * current_distances + (1 - alpha) * dest_distances",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\nThe new algorithm selects the next node by first calculating the distance of all unvisited nodes to the current node, then selecting the node with the shortest distance as the next node.\n",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    next_node = unvisited_nodes[np.argmin(distances)]\n    return next_node",
+               "objective": 7.21241,
+               "other_inf": null
+          },
+          {
+               "algorithm": "\nSelect the next node from unvisited nodes by combining the nearest neighbor heuristic with a priority based on minimizing the sum of distances to the destination and maximizing a random factor for exploration, then ensuring ties are broken by distance to the current node.\n",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    distances_to_current = distance_matrix[current_node, unvisited_nodes]\n    distances_to_destination = distance_matrix[unvisited_nodes, destination_node]\n    combined = 0.7 * distances_to_current + 0.3 * distances_to_destination\n    combined = combined - 0.1 * np.random.random(len(combined))\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 8.05732,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    distances_to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    distances_to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    combined = 0.7 * distances_to_current + 0.3 * distances_to_destination",
+                    "    combined = combined - 0.1 * np.random.random(len(combined))",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "\nThe new algorithm selects the next node by first calculating the distance of all unvisited nodes to the current node, then selecting the node with the shortest distance as the next node.\n",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    next_node = unvisited_nodes[np.argmin(distances)]\n    return next_node",
+               "objective": 7.21241,
+               "other_inf": null
+          },
+          {
+               "algorithm": "The algorithm selects the next node by evaluating a weighted score combining the distance from the current node and the proximity to the faraway final destination to balance immediate and future cost.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_dest = distance_matrix[destination_node, unvisited_nodes]\n    score = 0.7 * to_current + 0.3 * to_dest\n    next_node = unvisited_nodes[np.argmin(score)]\n    return next_node",
+               "objective": 7.35261,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    to_dest = distance_matrix[destination_node, unvisited_nodes]",
+                    "    score = 0.7 * to_current + 0.3 * to_dest",
+                    "    next_node = unvisited_nodes[np.argmin(score)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by evaluating a weighted score combining the distance from the current node and the proximity to the faraway final destination to balance immediate and future cost.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_dest = distance_matrix[destination_node, unvisited_nodes]\n    score = 0.7 * to_current + 0.3 * to_dest\n    next_node = unvisited_nodes[np.argmin(score)]\n    return next_node",
+               "objective": 7.35261,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    to_dest = distance_matrix[destination_node, unvisited_nodes]",
+                    "    score = 0.7 * to_current + 0.3 * to_dest",
+                    "    next_node = unvisited_nodes[np.argmin(score)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by evaluating a weighted score combining the distance from the current node and the proximity to the faraway final destination to balance immediate and future cost.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_dest = distance_matrix[destination_node, unvisited_nodes]\n    score = 0.7 * to_current + 0.3 * to_dest\n    next_node = unvisited_nodes[np.argmin(score)]\n    return next_node",
+               "objective": 7.35261,
+               "other_inf": [
+                    "    if len(unvisited_nodes) == 0:",
+                    "        return destination_node",
+                    "    to_current = distance_matrix[current_node, unvisited_nodes]",
+                    "    to_dest = distance_matrix[destination_node, unvisited_nodes]",
+                    "    score = 0.7 * to_current + 0.3 * to_dest",
+                    "    next_node = unvisited_nodes[np.argmin(score)]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and proximity to the final destination, weighted by each node's centrality among the remaining nodes to avoid future detours.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_dest = distance_matrix[unvisited_nodes, destination_node]\n    centrality = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n    norm_cur = (to_current - to_current.min()) / (to_current.max() - to_current.min() + 1e-12)\n    norm_dest = (to_dest - to_dest.min()) / (to_dest.max() - to_dest.min() + 1e-12)\n    norm_cent = (centrality - centrality.min()) / (centrality.max() - centrality.min() + 1e-12)\n    score = 0.4 * norm_cur + 0.4 * norm_dest + 0.2 * norm_cent\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 9.66137,
+               "other_inf": [
+                    "    to_dest = distance_matrix[unvisited_nodes, destination_node]",
+                    "    centrality = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "    norm_cur = (to_current - to_current.min()) / (to_current.max() - to_current.min() + 1e-12)",
+                    "    norm_dest = (to_dest - to_dest.min()) / (to_dest.max() - to_dest.min() + 1e-12)",
+                    "    norm_cent = (centrality - centrality.min()) / (centrality.max() - centrality.min() + 1e-12)",
+                    "    score = 0.4 * norm_cur + 0.4 * norm_dest + 0.2 * norm_cent"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing the greediness of the nearest neighbor with a penalty for nodes that are far from the centroid of the remaining unvisited nodes, thus encouraging a spatially compact route expansion.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    unvisited = list(unvisited_nodes)\n    dist_to_current = distance_matrix[current_node, unvisited]\n    remaining_coords = np.array([(i, i) for i in unvisited])\n    centroid = np.mean(remaining_coords, axis=0)\n    dist_to_centroid = np.linalg.norm(remaining_coords - centroid, axis=1)\n    norm_current = (dist_to_current - dist_to_current.min()) / (dist_to_current.max() - dist_to_current.min() + 1e-12)\n    norm_centroid = (dist_to_centroid - dist_to_centroid.min()) / (dist_to_centroid.max() - dist_to_centroid.min() + 1e-12)\n    scores = 0.7 * norm_current + 0.3 * norm_centroid\n    next_node = unvisited[np.argmin(scores)]\n    return next_node",
+               "objective": 9.34705,
+               "other_inf": [
+                    "    unvisited = list(unvisited_nodes)",
+                    "    dist_to_current = distance_matrix[current_node, unvisited]",
+                    "    remaining_coords = np.array([(i, i) for i in unvisited])",
+                    "    centroid = np.mean(remaining_coords, axis=0)",
+                    "    dist_to_centroid = np.linalg.norm(remaining_coords - centroid, axis=1)",
+                    "    norm_current = (dist_to_current - dist_to_current.min()) / (dist_to_current.max() - dist_to_current.min() + 1e-12)",
+                    "    norm_centroid = (dist_to_centroid - dist_to_centroid.min()) / (dist_to_centroid.max() - dist_to_centroid.min() + 1e-12)",
+                    "    scores = 0.7 * norm_current + 0.3 * norm_centroid",
+                    "    next_node = unvisited[np.argmin(scores)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by balancing proximity to the current node and the need to eventually reach the destination, using a weighted score that prioritizes nodes closer to the current node while also considering their distance to the destination and remaining unvisited nodes.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    if len(unvisited_nodes) > 1:\n        dist_to_others = distance_matrix[unvisited_nodes][:, unvisited_nodes]\n        avg_dist_others = np.mean(dist_to_others, axis=1)\n        norm_to_current = (to_current - to_current.min()) / (to_current.max() - to_current.min()+1e-9)\n        norm_to_dest = (to_destination - to_destination.min()) / (to_destination.max() - to_destination.min()+1e-9)\n        norm_avg_others = (avg_dist_others - avg_dist_others.min()) / (avg_dist_others.max() - avg_dist_others.min()+1e-9)\n        score = 0.4 * norm_to_current + 0.4 * norm_to_dest + 0.2 * norm_avg_others\n    else:\n        score = 0.5 * to_current + 0.5 * to_destination\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 9.66137,
+               "other_inf": [
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "        dist_to_others = distance_matrix[unvisited_nodes][:, unvisited_nodes]",
+                    "        avg_dist_others = np.mean(dist_to_others, axis=1)",
+                    "        norm_to_current = (to_current - to_current.min()) / (to_current.max() - to_current.min()+1e-9)",
+                    "        norm_to_dest = (to_destination - to_destination.min()) / (to_destination.max() - to_destination.min()+1e-9)",
+                    "        norm_avg_others = (avg_dist_others - avg_dist_others.min()) / (avg_dist_others.max() - avg_dist_others.min()+1e-9)",
+                    "        score = 0.4 * norm_to_current + 0.4 * norm_to_dest + 0.2 * norm_avg_others",
+                    "        score = 0.5 * to_current + 0.5 * to_destination"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          },
+          {
+               "algorithm": "The algorithm selects the next node by dynamically balancing the immediate cost to the candidate node and its average cost to all remaining unvisited nodes, using a weighting factor that decays as the tour progresses to shift focus from global utility to local proximity.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if destination_node in unvisited_nodes and not np.array_equal(unvisited_nodes, [destination_node]):\n        return destination_node\n    rem = len(unvisited_nodes)\n    if rem == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    avg_to_rest = np.array([np.mean(distance_matrix[n, np.setdiff1d(unvisited_nodes, n)]) if rem > 1 else 0 for n in unvisited_nodes])\n    normalized_current = (to_current - np.min(to_current)) / (np.max(to_current) - np.min(to_current) + 1e-10)\n    normalized_avg = (avg_to_rest - np.min(avg_to_rest)) / (np.max(avg_to_rest) - np.min(avg_to_rest) + 1e-10)\n    progress = 1 - (rem / len(distance_matrix))\n    weight = 0.7 * (1 - progress) + 0.3 * progress\n    score = weight * normalized_current + (1 - weight) * normalized_avg\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 15.73652,
+               "other_inf": [
+                    "    if destination_node in unvisited_nodes and not np.array_equal(unvisited_nodes, [destination_node]):",
+                    "    rem = len(unvisited_nodes)",
+                    "    if rem == 0:",
+                    "    avg_to_rest = np.array([np.mean(distance_matrix[n, np.setdiff1d(unvisited_nodes, n)]) if rem > 1 else 0 for n in unvisited_nodes])",
+                    "    normalized_current = (to_current - np.min(to_current)) / (np.max(to_current) - np.min(to_current) + 1e-10)",
+                    "    normalized_avg = (avg_to_rest - np.min(avg_to_rest)) / (np.max(avg_to_rest) - np.min(avg_to_rest) + 1e-10)",
+                    "    progress = 1 - (rem / len(distance_matrix))",
+                    "    weight = 0.7 * (1 - progress) + 0.3 * progress",
+                    "    score = weight * normalized_current + (1 - weight) * normalized_avg"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ],
+     [
+          {
+               "algorithm": "The algorithm selects the next node by considering both proximity to the current node and the node's future utility, measured as the average proximity to all remaining unvisited nodes, to minimize local and global path elongation.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n        score = 0.5 * to_current + 0.5 * utility_score\n    else:\n        score = to_current\n    min_idx = np.argmin(score)\n    next_node = unvisited_nodes[min_idx]\n    return next_node",
+               "objective": 8.38889,
+               "other_inf": [
+                    "    if len(unvisited_nodes) > 1:",
+                    "        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)",
+                    "        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "        utility_score = 1 - normalized_avg",
+                    "        score = 0.5 * to_current + 0.5 * utility_score",
+                    "    else:",
+                    "        score = to_current",
+                    "    min_idx = np.argmin(score)",
+                    "    next_node = unvisited_nodes[min_idx]"
+               ]
+          },
+          {
+               "algorithm": "Select the next node by balancing proximity to the current node and distance to the final destination.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    alpha = 0.5\n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[unvisited_nodes, destination_node]\n    combined = alpha * current_distances + (1 - alpha) * dest_distances\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 8.03034,
+               "code_feature": [
+                    "    alpha = 0.5",
+                    "    current_distances = distance_matrix[current_node, unvisited_nodes]",
+                    "    dest_distances = distance_matrix[unvisited_nodes, destination_node]",
+                    "    combined = alpha * current_distances + (1 - alpha) * dest_distances",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "A novel algorithm that selects the next node using a weighted combination of proximity to the current node, alignment with the direction toward the destination, and a repulsion term from already-visited nodes to promote exploration.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    \n    uv = np.array(unvisited_nodes)\n    to_current = distance_matrix[uv, current_node]\n    to_dest = distance_matrix[uv, destination_node]\n    \n    centroid = np.mean(distance_matrix[uv], axis=0)\n    direction = distance_matrix[uv, destination_node] - distance_matrix[uv, current_node]\n    alignment = np.dot(distance_matrix[uv], centroid) / (np.linalg.norm(distance_matrix[uv], axis=1) * np.linalg.norm(centroid) + 1e-9)\n    \n    alpha, beta, gamma = 0.5, 0.3, 0.2\n    combined = alpha * to_current + beta * to_dest - gamma * alignment\n    \n    next_node = uv[np.argmin(combined)]\n    return next_node",
+               "objective": 7.69936,
+               "other_inf": [
+                    "    uv = np.array(unvisited_nodes)",
+                    "    to_current = distance_matrix[uv, current_node]",
+                    "    to_dest = distance_matrix[uv, destination_node]",
+                    "    centroid = np.mean(distance_matrix[uv], axis=0)",
+                    "    direction = distance_matrix[uv, destination_node] - distance_matrix[uv, current_node]",
+                    "    alignment = np.dot(distance_matrix[uv], centroid) / (np.linalg.norm(distance_matrix[uv], axis=1) * np.linalg.norm(centroid) + 1e-9)",
+                    "    alpha, beta, gamma = 0.5, 0.3, 0.2",
+                    "    combined = alpha * to_current + beta * to_dest - gamma * alignment",
+                    "    next_node = uv[np.argmin(combined)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "An algorithm that selects the next node by combining its distance to the current node, the reciprocal of its distance to the destination, and a dynamic score based on its proximity to a centroid of all unvisited nodes to balance local and global efficiency.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return current_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    centroid_index = np.mean(unvisited_nodes)\n    to_centroid = np.array([distance_matrix[node, int(np.round(centroid_index))] for node in unvisited_nodes])\n    alpha, beta = 0.4, 0.3\n    gamma = 1 - alpha - beta\n    combined = alpha * to_current + beta * (1.0 / (to_destination + 1e-6)) + gamma * to_centroid\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 9.36308,
+               "other_inf": [
+                    "        return current_node",
+                    "    centroid_index = np.mean(unvisited_nodes)",
+                    "    to_centroid = np.array([distance_matrix[node, int(np.round(centroid_index))] for node in unvisited_nodes])",
+                    "    alpha, beta = 0.4, 0.3",
+                    "    gamma = 1 - alpha - beta",
+                    "    combined = alpha * to_current + beta * (1.0 / (to_destination + 1e-6)) + gamma * to_centroid"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "Select the next node by optimizing a weighted combination of distance to current node, distance to destination, node isolation penalty, and a lookahead penalty for increasing the distance from the remaining nodes to the destination.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    \n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    \n    avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n    isolation = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n    \n    future_penalty = np.zeros(len(unvisited_nodes))\n    remaining = np.setdiff1d(unvisited_nodes, unvisited_nodes, assume_unique=True)\n    for i, cand in enumerate(unvisited_nodes):\n        if len(remaining) > 0:\n            future_penalty[i] = np.mean(distance_matrix[cand, remaining]) - np.mean(distance_matrix[remaining, destination_node])\n    \n    norm_future = (future_penalty - future_penalty.min()) / (future_penalty.max() - future_penalty.min() + 1e-12)\n    utility_score = 0.5 * isolation + 0.5 * norm_future\n    \n    alpha, beta = 0.35, 0.35\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    \n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 9.76354,
+               "other_inf": [
+                    "    isolation = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)",
+                    "    future_penalty = np.zeros(len(unvisited_nodes))",
+                    "    remaining = np.setdiff1d(unvisited_nodes, unvisited_nodes, assume_unique=True)",
+                    "    for i, cand in enumerate(unvisited_nodes):",
+                    "        if len(remaining) > 0:",
+                    "            future_penalty[i] = np.mean(distance_matrix[cand, remaining]) - np.mean(distance_matrix[remaining, destination_node])",
+                    "    norm_future = (future_penalty - future_penalty.min()) / (future_penalty.max() - future_penalty.min() + 1e-12)",
+                    "    utility_score = 0.5 * isolation + 0.5 * norm_future",
+                    "    alpha, beta = 0.35, 0.35"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "An algorithm that selects the next node by weighted scores for proximity to current and destination, plus a future utility based on the node\u2019s minimum distance to any other unvisited node, with dynamic parameter adjustment based on remaining nodes.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_dest = distance_matrix[unvisited_nodes, destination_node]\n    avg_to_unvisited = np.array([np.min(distance_matrix[n, np.setdiff1d(unvisited_nodes, n)]) if len(unvisited_nodes) > 1 else 1.0 for n in unvisited_nodes])\n    if len(unvisited_nodes) > 1:\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    remaining = len(unvisited_nodes)\n    alpha = 0.5 * (remaining / len(distance_matrix))\n    beta = 0.3 * (remaining / len(distance_matrix))\n    gamma = 1.0 - alpha - beta\n    normalized_current = (to_current - to_current.min()) / (to_current.max() - to_current.min() + 1e-12)\n    normalized_dest = (to_dest - to_dest.min()) / (to_dest.max() - to_dest.min() + 1e-12)\n    combined = alpha * normalized_current + beta * normalized_dest + gamma * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 12.2397,
+               "other_inf": [
+                    "    to_dest = distance_matrix[unvisited_nodes, destination_node]",
+                    "    avg_to_unvisited = np.array([np.min(distance_matrix[n, np.setdiff1d(unvisited_nodes, n)]) if len(unvisited_nodes) > 1 else 1.0 for n in unvisited_nodes])",
+                    "    remaining = len(unvisited_nodes)",
+                    "    alpha = 0.5 * (remaining / len(distance_matrix))",
+                    "    beta = 0.3 * (remaining / len(distance_matrix))",
+                    "    gamma = 1.0 - alpha - beta",
+                    "    normalized_current = (to_current - to_current.min()) / (to_current.max() - to_current.min() + 1e-12)",
+                    "    normalized_dest = (to_dest - to_dest.min()) / (to_dest.max() - to_dest.min() + 1e-12)",
+                    "    combined = alpha * normalized_current + beta * normalized_dest + gamma * utility_score"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "An algorithm that selects the next node by dynamically weighting proximity to the current node, proximity to the destination, and a penalty based on the node's estimated future cost, which is computed as the minimum of its distances to other unvisited nodes.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    future_penalty = np.array([np.min(distance_matrix[node, np.setdiff1d(unvisited_nodes, node)]) if len(unvisited_nodes) > 1 else 0 for node in unvisited_nodes])\n    normalized_current = (to_current - to_current.min()) / (to_current.max() - to_current.min() + 1e-12)\n    normalized_destination = (to_destination - to_destination.min()) / (to_destination.max() - to_destination.min() + 1e-12)\n    normalized_penalty = (future_penalty - future_penalty.min()) / (future_penalty.max() - future_penalty.min() + 1e-12)\n    alpha, beta, gamma = 0.4, 0.4, 0.2\n    combined = alpha * normalized_current + beta * normalized_destination + gamma * normalized_penalty\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 10.64687,
+               "other_inf": [
+                    "    future_penalty = np.array([np.min(distance_matrix[node, np.setdiff1d(unvisited_nodes, node)]) if len(unvisited_nodes) > 1 else 0 for node in unvisited_nodes])",
+                    "    normalized_current = (to_current - to_current.min()) / (to_current.max() - to_current.min() + 1e-12)",
+                    "    normalized_destination = (to_destination - to_destination.min()) / (to_destination.max() - to_destination.min() + 1e-12)",
+                    "    normalized_penalty = (future_penalty - future_penalty.min()) / (future_penalty.max() - future_penalty.min() + 1e-12)",
+                    "    alpha, beta, gamma = 0.4, 0.4, 0.2",
+                    "    combined = alpha * normalized_current + beta * normalized_destination + gamma * normalized_penalty"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "An algorithm that selects the next node by computing the difference between its distance to the current node and its distance to the destination, then weighing this against the minimum distance from that candidate node to any other unvisited node to favor moves that enable future short hops.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_destination = distance_matrix[destination_node, unvisited_nodes]\n    diff = np.abs(to_current - to_destination)\n    future_cost = np.array([np.min(distance_matrix[cand, np.setdiff1d(unvisited_nodes, [cand])]) if len(unvisited_nodes) > 1 else 0 for cand in unvisited_nodes])\n    normalized_diff = (diff - diff.min()) / (diff.max() - diff.min() + 1e-12)\n    normalized_future = (future_cost - future_cost.min()) / (future_cost.max() - future_cost.min() + 1e-12)\n    score = 0.6 * normalized_diff + 0.4 * normalized_future\n    next_node = unvisited_nodes[np.argmin(score)]\n    return next_node",
+               "objective": 26.46528,
+               "other_inf": [
+                    "    to_destination = distance_matrix[destination_node, unvisited_nodes]",
+                    "    diff = np.abs(to_current - to_destination)",
+                    "    future_cost = np.array([np.min(distance_matrix[cand, np.setdiff1d(unvisited_nodes, [cand])]) if len(unvisited_nodes) > 1 else 0 for cand in unvisited_nodes])",
+                    "    normalized_diff = (diff - diff.min()) / (diff.max() - diff.min() + 1e-12)",
+                    "    normalized_future = (future_cost - future_cost.min()) / (future_cost.max() - future_cost.min() + 1e-12)",
+                    "    score = 0.6 * normalized_diff + 0.4 * normalized_future",
+                    "    next_node = unvisited_nodes[np.argmin(score)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "Select the next node by combining proximity to current and destination nodes with a decay-weighted average distance to unvisited nodes, adjusting weights based on remaining nodes to balance local versus global considerations.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n    n_left = len(unvisited_nodes)\n    decay = max(0.1, 1 - n_left / (distance_matrix.shape[0] * 0.8))\n    utility_score = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-9)\n    combined = (0.5 * decay) * to_current + (0.3 * decay) * to_destination + (1 - 0.8 * decay) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 19.52218,
+               "other_inf": [
+                    "    n_left = len(unvisited_nodes)",
+                    "    decay = max(0.1, 1 - n_left / (distance_matrix.shape[0] * 0.8))",
+                    "    utility_score = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-9)",
+                    "    combined = (0.5 * decay) * to_current + (0.3 * decay) * to_destination + (1 - 0.8 * decay) * utility_score"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": "An algorithm that selects the next node by maximizing a weighted sum of inverse distance to current node, inverse distance to destination, and a clustering factor that prioritizes nodes which are close to many other unvisited nodes.",
+               "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = 1.0 / (distance_matrix[current_node, unvisited_nodes] + 1e-12)\n    to_destination = 1.0 / (distance_matrix[unvisited_nodes, destination_node] + 1e-12)\n    if len(unvisited_nodes) > 1:\n        dist_to_others = distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)]\n        others_mean_dist = np.mean(dist_to_others, axis=1)\n        clustering_factor = 1.0 / (others_mean_dist + 1e-12)\n        normalized_cluster = (clustering_factor - clustering_factor.min()) / (clustering_factor.max() - clustering_factor.min() + 1e-12)\n    else:\n        normalized_cluster = np.array([1.0])\n    weight_current, weight_dest, weight_cluster = 0.4, 0.3, 0.3\n    combined = weight_current * to_current + weight_dest * to_destination + weight_cluster * normalized_cluster\n    next_node = unvisited_nodes[np.argmax(combined)]\n    return next_node",
+               "objective": 7.7238,
+               "other_inf": [
+                    "    to_current = 1.0 / (distance_matrix[current_node, unvisited_nodes] + 1e-12)",
+                    "    to_destination = 1.0 / (distance_matrix[unvisited_nodes, destination_node] + 1e-12)",
+                    "        dist_to_others = distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)]",
+                    "        others_mean_dist = np.mean(dist_to_others, axis=1)",
+                    "        clustering_factor = 1.0 / (others_mean_dist + 1e-12)",
+                    "        normalized_cluster = (clustering_factor - clustering_factor.min()) / (clustering_factor.max() - clustering_factor.min() + 1e-12)",
+                    "        normalized_cluster = np.array([1.0])",
+                    "    weight_current, weight_dest, weight_cluster = 0.4, 0.3, 0.3",
+                    "    combined = weight_current * to_current + weight_dest * to_destination + weight_cluster * normalized_cluster",
+                    "    next_node = unvisited_nodes[np.argmax(combined)]"
+               ]
+          }
+     ],
+     [
+          {
+               "algorithm": "An algorithm that selects the next node by iteratively balancing proximity to the current node, proximity to the destination, and the node's future utility, which is measured by its average distance to other unvisited nodes, to optimize both local and global path efficiency.",
+               "code": "def select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    to_current = distance_matrix[current_node, unvisited_nodes]\n    if len(unvisited_nodes) > 1:\n        avg_to_unvisited = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n        normalized_avg = (avg_to_unvisited - avg_to_unvisited.min()) / (avg_to_unvisited.max() - avg_to_unvisited.min() + 1e-12)\n        utility_score = 1 - normalized_avg\n    else:\n        utility_score = np.ones_like(to_current)\n    to_destination = distance_matrix[unvisited_nodes, destination_node]\n    alpha, beta = 0.4, 0.4\n    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score\n    next_node = unvisited_nodes[np.argmin(combined)]\n    return next_node",
+               "objective": 7.51767,
+               "other_inf": [
+                    "        utility_score = np.ones_like(to_current)",
+                    "    to_destination = distance_matrix[unvisited_nodes, destination_node]",
+                    "    alpha, beta = 0.4, 0.4",
+                    "    combined = alpha * to_current + beta * to_destination + (1 - alpha - beta) * utility_score",
+                    "    next_node = unvisited_nodes[np.argmin(combined)]"
+               ]
+          },
+          {
+               "algorithm": null,
+               "code": null,
+               "objective": null,
+               "other_inf": null
+          }
+     ]
+]

@@ -1,0 +1,10 @@
+{
+     "algorithm": "The algorithm selects the next node by balancing proximity to the current node and alignment toward the destination, while also considering the average distance from each candidate to all remaining unvisited nodes to promote future route flexibility.",
+     "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    distances = distance_matrix[current_node, unvisited_nodes]\n    threshold = np.percentile(distances, 30)\n    candidates = unvisited_nodes[distances <= threshold]\n    if candidates.size == 0:\n        candidates = unvisited_nodes\n    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])\n    ratios = distance_matrix[current_node, candidates] / (distance_matrix[destination_node, candidates] + 1e-9)\n    scores = ratios / (avg_future_dist + 1e-6)\n    next_node = candidates[np.argmin(scores)]\n    return next_node",
+     "objective": 6.44352,
+     "other_inf": [
+          "    avg_future_dist = np.array([np.mean(distance_matrix[c, unvisited_nodes[unvisited_nodes != c]]) for c in candidates])",
+          "    scores = ratios / (avg_future_dist + 1e-6)",
+          "    next_node = candidates[np.argmin(scores)]"
+     ]
+}

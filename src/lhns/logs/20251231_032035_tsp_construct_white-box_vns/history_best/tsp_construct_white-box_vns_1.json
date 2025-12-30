@@ -1,0 +1,21 @@
+{
+     "algorithm": "The algorithm selects the next node by combining distance-weighted pheromone accumulation from a simulated local diffusion process, geometric sector density penalization, and a return-pressure heuristic that anticipates the final closure to the destination, with weights adjusted by a simulated annealing style temperature.",
+     "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 1:\n        return unvisited_nodes[0]\n\n    n_unvisited = len(unvisited_nodes)\n    dist_to_unvisited = distance_matrix[current_node, unvisited_nodes]\n    proximity = 1 / (dist_to_unvisited + 1e-9)\n    \n    entropy_list = []\n    for node in unvisited_nodes:\n        dist_to_others = distance_matrix[node, np.setdiff1d(unvisited_nodes, node)]\n        if len(dist_to_others) > 0:\n            prob = 1 / (dist_to_others + 1e-9)\n            prob = prob / prob.sum()\n            entropy = -np.sum(prob * np.log(prob + 1e-9))\n            entropy_list.append(entropy)\n        else:\n            entropy_list.append(0)\n    spatial_entropy = np.array(entropy_list)\n    \n    remaining_utility = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)], axis=1)\n    remaining_utility = (remaining_utility - remaining_utility.min()) / (remaining_utility.max() - remaining_utility.min() + 1e-9)\n    \n    dest_alignment = (distance_matrix[destination_node, unvisited_nodes] - distance_matrix[destination_node, unvisited_nodes].min()) / (distance_matrix[destination_node, unvisited_nodes].max() - distance_matrix[destination_node, unvisited_nodes].min() + 1e-9)\n    \n    progress = 1 - n_unvisited / distance_matrix.shape[0]\n    exploit_weight = 0.2 + 0.6 * progress\n    \n    scores = (exploit_weight * proximity +\n              (1 - exploit_weight) * (spatial_entropy - spatial_entropy.min()) / (spatial_entropy.max() - spatial_entropy.min() + 1e-9) +\n              0.3 * remaining_utility -\n              0.2 * dest_alignment)\n    \n    next_node_index = np.argmax(scores)\n    next_node = unvisited_nodes[next_node_index]\n    return next_node",
+     "objective": 7.04665,
+     "other_inf": [
+          "    entropy_list = []",
+          "    for node in unvisited_nodes:",
+          "            prob = 1 / (dist_to_others + 1e-9)",
+          "            prob = prob / prob.sum()",
+          "            entropy = -np.sum(prob * np.log(prob + 1e-9))",
+          "            entropy_list.append(entropy)",
+          "            entropy_list.append(0)",
+          "    spatial_entropy = np.array(entropy_list)",
+          "    progress = 1 - n_unvisited / distance_matrix.shape[0]",
+          "    exploit_weight = 0.2 + 0.6 * progress",
+          "    scores = (exploit_weight * proximity +",
+          "              (1 - exploit_weight) * (spatial_entropy - spatial_entropy.min()) / (spatial_entropy.max() - spatial_entropy.min() + 1e-9) +",
+          "              0.3 * remaining_utility -",
+          "              0.2 * dest_alignment)"
+     ]
+}
