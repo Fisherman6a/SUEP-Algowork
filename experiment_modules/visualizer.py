@@ -284,11 +284,24 @@ class ExperimentVisualizer:
             time_scores.append(result.get('time', 0))
 
         # 归一化到0-100分制（越高越好）
+        # 使用最小-最大归一化，保证最差算法也有至少10分
         max_quality = max(quality_scores) if quality_scores else 1
-        max_time = max(time_scores) if time_scores else 1
+        min_quality = min(quality_scores) if quality_scores else 0
 
-        quality_normalized = [100 * (1 - q/max_quality) for q in quality_scores]
-        time_normalized = [100 * (1 - t/max_time) for t in time_scores]
+        # 质量得分：值越小越好，归一化后分数越高
+        quality_normalized = [
+            max(10, 100 * (max_quality - q) / (max_quality - min_quality + 1e-10))
+            for q in quality_scores
+        ]
+
+        # 时间得分：使用对数尺度处理极端差异（传统算法毫秒级 vs LHNS分钟级）
+        # 保证最慢算法至少10分
+        time_log = [np.log(t + 1) for t in time_scores]
+        max_log = max(time_log) if time_log else 1
+        time_normalized = [
+            max(10, 100 * (1 - tlog/max_log))
+            for tlog in time_log
+        ]
 
         # 计算综合得分
         综合得分 = [(q * 0.6 + t * 0.4) for q, t in zip(quality_normalized, time_normalized)]

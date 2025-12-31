@@ -57,24 +57,42 @@ class LHNS:
         random.seed(2024)
 
     def simulated_annealing(self, next_ind, curr_ind, rounds, cooling_rate, ils_count):
+        """
+        模拟退火算法接受准则
+        参数:
+            next_ind: 新生成的候选解个体
+            curr_ind: 当前解个体
+            rounds: 当前迭代轮次
+            cooling_rate: 降温速率
+            ils_count: 连续未接受的次数计数器
 
+        返回:
+            accept: 是否接受新解
+            ils_count: 更新后的计数器值
+        """
         new_obj = next_ind['objective']
+        # 计算当前温度，随着迭代进行温度线性下降
         temperature = cooling_rate * (1 - (rounds - 1) / self.paras.iterations)
 
+        # 如果新解的目标函数值为空，则拒绝接受
         if new_obj is None:
             ils_count += 1
             return False, ils_count
 
-        # for minimization
+        # 针对最小化问题的接受准则
         if new_obj >= curr_ind['objective']:
+            # 新解更差时，计算Metropolis准则的接受概率
+            # temp_value = ΔE / T，其中ΔE为目标函数值的差值
             temp_value = ((curr_ind['objective'] - new_obj) / (curr_ind['objective'] + 1E-10)) / temperature
 
+            # 以概率 exp(temp_value) 接受更差的解，实现跳出局部最优
             if np.random.rand() < np.exp(temp_value):
                 accept = True
             else:
                 accept = False
             ils_count += 1
         else:
+            # 新解更优时，直接接受并重置计数器
             accept = True
             ils_count = 0
 

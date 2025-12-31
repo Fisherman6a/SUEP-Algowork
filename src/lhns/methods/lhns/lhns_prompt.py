@@ -138,27 +138,43 @@ The description must be inside a brace. Next, implement it in Python as a functi
         return "Modify the provided algorithm to improve its performance, where you can determine the degree of modification needed."
 
     def delete_lines(self, code, number_of_delete):
-        lines = copy.deepcopy(code.split('\n'))
-        to_be_deleted_lines_index = []  # "#" and selected lines
-        content_lines_index = []  # not "#", "" and import and def
+        """
+        参数:
+            code: 原始代码字符串
+            number_of_delete: 删除比例（0-1之间的浮点数）或具体删除行数
 
+        返回:
+            new_code: 删除部分行后的代码
+            number_of_delete: 实际删除的行数
+        """
+        lines = copy.deepcopy(code.split('\n'))
+        to_be_deleted_lines_index = []  # 待删除的行索引：包括注释行和随机选择的内容行
+        content_lines_index = []  # 有效内容行索引：排除函数定义、import语句、空行和注释
+
+        # 遍历所有代码行，分类标记
         for index, line in enumerate(lines):
             stripped_line = line.strip()
+            # 跳过函数定义、import语句和空行（这些是代码结构的关键部分）
             if stripped_line.startswith('def ') or stripped_line.startswith('import') or stripped_line == "":
                 continue
             if stripped_line.startswith('#'):
+                # 注释行标记为待删除
                 to_be_deleted_lines_index.append(index)
             else:
                 if "#" in line:
                     line.split('#', 1)[0].rstrip()
+                # 记录有效内容行索引
                 content_lines_index.append(index)
 
-        number_of_delete = np.ceil(number_of_delete * len(content_lines_index)).astype(int)  # when number_of_delete is a cofficient
+        # 根据删除比例计算实际删除的行数
+        number_of_delete = np.ceil(number_of_delete * len(content_lines_index)).astype(int)
+        # 从有效内容行中随机选择要删除的行
         content_delete_lines = random.choices(content_lines_index, k=min([number_of_delete, len(content_lines_index)]))
         if len(content_delete_lines) == 0:
             raise Exception("No content lines to delete")
         to_be_deleted_lines_index.extend(content_delete_lines)
 
+        # 重构新代码，保留未被标记删除的行
         new_code = ""
         for indexI, i in enumerate(lines):
             if indexI not in to_be_deleted_lines_index:
@@ -207,17 +223,27 @@ The description must be inside a brace. Next, implement it in Python as a functi
         return opt
 
     def get_prompt_rr(self, indiv1, number_of_delete):
+        """
+        参数:
+            indiv1: 当前个体（包含算法描述和代码）
+            number_of_delete: 删除比例（0-1）
+
+        返回:
+            prompt_content: 完整的LLM提示词
+        """
+        # 破坏阶段：删除部分代码行
         deleted_code, deleted_lines = self.delete_lines(indiv1['code'], number_of_delete)
 
+        # 构造提示词，包含：任务描述、原算法描述、破坏后的代码、重构指令
         prompt_content = self.prompt_task + "\n" \
-"I have one algorithm with its code as follows. \
-Algorithm description: " + indiv1['algorithm'] + "\n \
-Code:\n \
-" + deleted_code + "\n" \
-+ self.get_rr_opts(deleted_lines) + "\n\
-First, describe your new algorithm and main steps in one sentence. \
-The description must be inside a brace. Next, implement it in Python as a function named \
-" + self.prompt_func_name + ". This function should accept " + str(len(self.prompt_func_inputs)) + " input(s): " \
+        "I have one algorithm with its code as follows. \
+        Algorithm description: " + indiv1['algorithm'] + "\n \
+        Code:\n \
+        " + deleted_code + "\n" \
+        + self.get_rr_opts(deleted_lines) + "\n\
+        First, describe your new algorithm and main steps in one sentence. \
+        The description must be inside a brace. Next, implement it in Python as a function named \
+        " + self.prompt_func_name + ". This function should accept " + str(len(self.prompt_func_inputs)) + " input(s): " \
                          + self.joined_inputs + ". The function should return " + str(
             len(self.prompt_func_outputs)) + " output(s): " \
                          + self.joined_outputs + ". " + self.prompt_inout_inf + " " \
@@ -263,15 +289,28 @@ The description must be inside a brace. Next, implement it in Python as a functi
         return [code_all, algorithm]
 
     def rr(self, indiv1, number_of_delete):
+        """
 
+        参数:
+            indiv1: 当前个体（包含算法描述和代码）
+            number_of_delete: 删除比例，控制破坏程度（0-1之间）
+
+        返回:
+            code_all: LLM生成的新算法代码
+            algorithm: LLM生成的新算法描述
+            code_features: 新生成的代码特征（与原代码的差异行）
+        """
+        # 生成包含破坏代码的提示词
         prompt_content = self.get_prompt_rr(indiv1, number_of_delete)
 
         if self.debug_mode:
-            print("\n >>> check prompt for creating algorithm using [ m2 ] : \n", prompt_content)
+            print("\n >>> check prompt for creating algorithm using [ rr ] : \n", prompt_content)
             print(">>> Press 'Enter' to continue")
             input()
 
+        # 让LLM基于破坏后的代码重新生成完整算法
         [code_all, algorithm] = self._get_alg(prompt_content)
+        # 提取LLM新生成的代码行（与原代码的差异）
         code_features = self._find_llm_generate_lines(indiv1['code'], code_all)
 
         if self.debug_mode:
